@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
       ios: "Hiragino Mincho ProN",
       android: "serif"
     }),
-    fontSize: 48,
+    // fontSize: 48,
   }
 });
