@@ -1,29 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      count: 0,
-    }
+      date: new Date()
+    };
   }
 
-  onPressMinusOne = () => {
-    this.setState({ count: this.state.count - 1 });
+  // コンポーネントがビューツリーに登録された直後に呼び出される
+  componentDidMount() {
+    this.timerID = setInterval(() => {
+      this.tick();
+    }, 1000);
   };
 
-  onPressPlusOne = () => {
-    this.setState({ count: this.state.count + 1 });
+  // コンポーネントがビューツリーから外された直後に呼び出される
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  };
+
+  tick() {
+    this.setState({ date: new Date()});
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Button title="-1" onPress={this.onPressMinusOne} />
-        <Text>{this.state.count}</Text>
-        <Button title="+1" onPress={this.onPressPlusOne} />
+        <Text> 現在時刻 </Text>
+        <Text>{this.state.date.toLocaleTimeString()}</Text>
       </View>
     );
   }
