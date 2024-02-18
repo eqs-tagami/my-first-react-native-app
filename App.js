@@ -1,39 +1,18 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date()
-    };
-  }
+export default function App() {
+  const [count, setCount] = useState(0);
 
-  // コンポーネントがビューツリーに登録された直後に呼び出される
-  componentDidMount() {
-    this.timerID = setInterval(() => {
-      this.tick();
-    }, 1000);
-  };
+  return (
+    <View style={styles.container}>
+      <Button title="-1" onPress={ () => setCount(count - 1)} />
+      <Text>{count}</Text>
+      <Button title="+1" onPress={ () => setCount(count + 1)} />
+    </View>
+  );
+};
 
-  // コンポーネントがビューツリーから外された直後に呼び出される
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  };
-
-  tick() {
-    this.setState({ date: new Date()});
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text> 現在時刻 </Text>
-        <Text>{this.state.date.toLocaleTimeString()}</Text>
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
