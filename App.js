@@ -2,15 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
-  useEffect(() => {
-    alert('hello!');
-  });
+  const Clock = () => {
+    const [date, setDate] = useState(() => new Date());
 
-  return (
-    <View>
-      <Text>Hello!</Text>
-    </View>
-  );
+    useEffect(() => {
+      const timerID = setInterval(() => {
+        setDate(new Date());
+      }, 1000);
+
+      return () => {
+        clearInterval(timerID);
+      };
+    }, []);
+
+    return (
+      <View>  
+        <Text> 現在時刻 </Text>
+        <Text>{date.toLocaleTimeString()}</Text>
+      </View>
+    );
+  }
 };
 
 
